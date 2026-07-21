@@ -43,6 +43,31 @@ function initParallax() {
   }, { passive: true });
 }
 
+/* Hero 3D cube: tilt the auto-spinning cube toward the cursor. The cube
+   stage is pointer-events:none, so we track movement on the hero itself and
+   ease toward the target angle for a smooth, weighty feel. */
+function initHeroCube() {
+  const hero = document.getElementById('top');
+  const tilt = document.querySelector('.hero-cube-tilt');
+  if (!hero || !tilt || reducedMotion) return;
+
+  let targetX = 0, targetY = 0, curX = 0, curY = 0;
+  hero.addEventListener('pointermove', (e) => {
+    const r = hero.getBoundingClientRect();
+    targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1 … 1
+    targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  }, { passive: true });
+  hero.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
+
+  (function frame() {
+    curX += (targetX - curX) * 0.06;
+    curY += (targetY - curY) * 0.06;
+    tilt.style.transform =
+      `rotateX(${(-curY * 16).toFixed(2)}deg) rotateY(${(curX * 24).toFixed(2)}deg)`;
+    requestAnimationFrame(frame);
+  })();
+}
+
 /* ---------------- Data fetching ---------------- */
 
 /* When served from GitHub Pages there is no API — a static export embeds
@@ -476,6 +501,7 @@ async function refresh() {
 }
 
 initParallax();
+initHeroCube();
 observeReveals();
 initForm();
 refresh().catch(err => {
