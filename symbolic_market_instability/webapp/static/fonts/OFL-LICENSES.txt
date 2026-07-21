@@ -1,0 +1,11 @@
+Bundled webfonts — all licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org):
+
+- Unbounded (Copyright 2022 The Unbounded Project Authors)
+  https://github.com/googlefonts/unbounded
+- Space Grotesk (Copyright 2020 Florian Karsten)
+  https://github.com/floriankarsten/space-grotesk
+- JetBrains Mono (Copyright 2020 JetBrains)
+  https://github.com/JetBrains/JetBrainsMono
+
+Latin subsets, woff2, served locally so the dashboard works offline.

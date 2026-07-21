@@ -84,10 +84,13 @@ class DataPreprocessor:
             Tuple of (calibration_data, validation_data, test_data)
         
         Raises:
-            ValueError: If ratios don't sum to 1.0 or data is empty
+            ValueError: If ratios exceed 1.0 or data is empty
         """
-        if abs(calib_ratio + valid_ratio - 1.0) > 1e-6:
-            raise ValueError(f"Ratios must sum to 1.0, got {calib_ratio + valid_ratio}")
+        if calib_ratio + valid_ratio > 1.0 + 1e-6:
+            raise ValueError(
+                f"calib_ratio + valid_ratio must not exceed 1.0, "
+                f"got {calib_ratio + valid_ratio}"
+            )
         
         if data.empty:
             raise ValueError("Cannot split empty data")

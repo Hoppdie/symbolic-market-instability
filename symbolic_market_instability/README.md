@@ -63,6 +63,46 @@ This will:
 - Generate timeline plots
 - Save metrics to `results/metrics/evaluation_metrics.json`
 
+### 4. Live Dashboard
+
+Browse every analysis run — and launch new ones — from a local web dashboard:
+
+```bash
+python scripts/run_dashboard.py          # http://127.0.0.1:5000
+```
+
+Features:
+- **Run archive**: every pipeline execution is persisted under
+  `results/runs/<run_id>/` with its parameters, status, day counts, and
+  crash-evaluation metrics
+- **Instability timeline**: per-run strip chart (green/amber/red per day)
+  with hover tooltips, plus an accessible table view
+- **Live mode**: launch a new run from the browser — pick an index from the
+  dropdown (S&P 500, Nasdaq, Dow, FTSE, DAX, Nikkei, Nifty 50, …) or enter
+  any custom Yahoo Finance ticker; the run executes in the background and
+  the page tracks it to completion
+- **Crash evaluation**: every run is scored against all registered
+  historical crashes that overlap its date range — the 2000 dot-com bust,
+  the 2008 financial crisis, the 2020 COVID crash, and the 2022 rate-hike
+  drawdown (see `CRASH_EVENTS` in `src/evaluation/case_studies.py` to add
+  more)
+- Fully offline: fonts and assets are bundled, no CDN required
+
+### 5. Static Export & CI
+
+Export a read-only snapshot of the dashboard (no server needed — run data
+is embedded into the page):
+
+```bash
+python scripts/export_static.py --out site   # open site/index.html
+```
+
+GitHub Actions workflows (in `.github/workflows/`):
+- `ci.yml` — runs the full pytest suite on every push and pull request
+- `pages.yml` — on pushes to `main`, runs a fresh S&P 500 analysis
+  (best effort) and publishes the static dashboard to GitHub Pages.
+  One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+
 ## Architecture
 
 The system follows a pipeline architecture:
