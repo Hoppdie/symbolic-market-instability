@@ -1,0 +1,56 @@
+rules:
+  - id: R1
+    antecedents:
+      - [RisingPrices, HighVolume]
+    consequent: SpeculativeActivity
+    confidence: 0.8
+    description: Rising prices with high volume indicates speculation
+    
+  - id: R2
+    antecedents:
+      - [ExcessiveGains, HighVolume]
+    consequent: SpeculativeActivity
+    confidence: 0.75
+    description: Excessive gains with volume suggests irrational exuberance
+    
+  - id: R3
+    antecedents:
+      - [SpeculativeActivity, HighVolatility]
+    consequent: BubbleState
+    confidence: 0.85
+    description: Speculation with high volatility indicates bubble formation
+    
+  - id: R4
+    antecedents:
+      - [BubbleState, TightLiquidity]
+    consequent: HighCrashRisk
+    confidence: 0.9
+    description: Bubble with tight liquidity creates high crash risk
+    
+  - id: R5
+    antecedents:
+      - [FallingPrices, HighVolatility, TightLiquidity]
+    consequent: PanicState
+    confidence: 0.85
+    description: Falling prices with high volatility and tight liquidity indicates panic
+    
+  - id: R6
+    antecedents:
+      - [PanicState, LowVolume]
+    consequent: LiquidityCrisis
+    confidence: 0.8
+    description: Panic with low volume indicates liquidity crisis
+    
+  - id: R7
+    antecedents:
+      - [HighCrashRisk, ExcessiveLosses]
+    consequent: ImminentCrash
+    confidence: 0.95
+    description: High crash risk with excessive losses indicates imminent crash
+    
+  - id: R8
+    antecedents:
+      - [LiquidityCrisis, FallingPrices]
+    consequent: ImminentCrash
+    confidence: 0.9
+    description: Liquidity crisis with falling prices indicates imminent crash

@@ -1,0 +1,28 @@
+symbols:
+  price:
+    - RisingPrices
+    - FallingPrices
+    - StablePrices
+  volatility:
+    - HighVolatility
+    - MediumVolatility
+    - LowVolatility
+  volume:
+    - HighVolume
+    - LowVolume
+    - NormalVolume
+  liquidity:
+    - TightLiquidity
+    - LooseLiquidity
+    - NormalLiquidity
+  returns:
+    - ExcessiveGains
+    - ExcessiveLosses
+    - NormalReturns
+  derived:
+    - SpeculativeActivity
+    - BubbleState
+    - HighCrashRisk
+    - PanicState
+    - LiquidityCrisis
+    - ImminentCrash
