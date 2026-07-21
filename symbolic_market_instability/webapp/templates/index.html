@@ -17,6 +17,10 @@
   <div class="hero-layer hero-glow hero-glow--red" data-parallax="0.35"></div>
   <div class="hero-layer hero-glow hero-glow--amber" data-parallax="0.25"></div>
 
+  <!-- Interactive Spline 3D cube — hero centerpiece, reacts to the cursor.
+       Loaded from CDN at runtime; degrades gracefully if unavailable. -->
+  <canvas id="canvas3d" class="hero-3d" aria-hidden="true"></canvas>
+
   <svg class="hero-seismo" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true">
     <polyline class="seismo-line" points="0,120 80,118 140,124 200,110 260,130 310,96 360,150 400,88
       440,160 470,70 500,182 525,54 550,196 570,40 590,204 610,36 630,208 655,52 680,190 710,74
@@ -184,5 +188,22 @@
 </template>
 
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+<script type="module">
+  // Spline 3D interactive cube in the hero. Loaded lazily from the CDN so
+  // the rest of the (offline-capable) dashboard never blocks on it; if the
+  // network or scene is unavailable the hero simply keeps its grid +
+  // seismograph backdrop. Skipped entirely under reduced-motion.
+  const canvas = document.getElementById('canvas3d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (canvas && !reduce) {
+    import('https://unpkg.com/@splinetool/runtime/build/runtime.js')
+      .then(({ Application }) => {
+        const app = new Application(canvas);
+        return app.load('https://prod.spline.design/OnSXrE6-rfOFbFCB/scene.splinecode');
+      })
+      .then(() => canvas.classList.add('loaded'))
+      .catch((err) => console.warn('Spline scene unavailable:', err));
+  }
+</script>
 </body>
 </html>
