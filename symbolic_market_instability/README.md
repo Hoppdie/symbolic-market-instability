@@ -91,17 +91,21 @@ Features:
 ### 5. Static Export & CI
 
 Export a read-only snapshot of the dashboard (no server needed — run data
-is embedded into the page):
+is embedded into the page). Open `site/index.html` directly, or drop the
+`site/` folder onto any static host (Netlify, Vercel, an S3 bucket, or
+GitHub Pages on a public repo):
 
 ```bash
 python scripts/export_static.py --out site   # open site/index.html
 ```
 
-GitHub Actions workflows (in `.github/workflows/`):
-- `ci.yml` — runs the full pytest suite on every push and pull request
-- `pages.yml` — on pushes to `main`, runs a fresh S&P 500 analysis
-  (best effort) and publishes the static dashboard to GitHub Pages.
-  One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+Continuous integration (`.github/workflows/ci.yml`) runs the full pytest
+suite on every push and pull request.
+
+> **Note on GitHub Pages:** publishing straight from Actions needs Pages
+> enabled, which requires a **public** repository or a paid plan for a
+> private one. This repo therefore ships CI only; use the local
+> `export_static.py` snapshot above for hosting.
 
 ## Architecture
 
