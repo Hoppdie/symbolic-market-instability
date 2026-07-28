@@ -1,5 +1,9 @@
 # Symbolic Reasoning Models for Stock Market Instability
 
+[![CI](https://github.com/Hoppdie/symbolic-market-instability/actions/workflows/ci.yml/badge.svg)](https://github.com/Hoppdie/symbolic-market-instability/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+
 ## Overview
 
 This project implements a theory-driven symbolic AI system for detecting stock market instability. The system uses forward-chaining inference with economic theory rules (based on Minsky's Financial Instability Hypothesis) to provide interpretable and explainable early-warning signals for market crashes.
@@ -8,7 +12,7 @@ This project implements a theory-driven symbolic AI system for detecting stock m
 - 100% interpretable (no black boxes)
 - Theory-driven rules (Minsky's Financial Instability Hypothesis)
 - Explainable outputs with inference chains
-- Historical validation on 2008 and 2020 crashes
+- Historical validation on the 2000, 2008, 2020, and 2022 crashes
 - No machine learning frameworks (pure symbolic reasoning)
 
 ## Installation
