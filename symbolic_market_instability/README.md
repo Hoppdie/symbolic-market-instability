@@ -215,13 +215,35 @@ symbolic_market_instability/
 - **Temporal validation** on out-of-sample crashes
 - **Explanation generation** for regulatory/policy use
 
+## Evaluation Results
+
+Measured on an S&P 500 (`^GSPC`) run against the two crashes the system was
+originally validated on:
+
+| Event | Precision | Recall | Lead time |
+|-------|-----------|--------|-----------|
+| 2008 financial crisis | 100% | 12.5% | 0 days |
+| 2020 COVID crash | 100% | 14.3% | 0 days |
+
+**Honest read:** precision is high — when the system raises a signal it is
+almost always inside a genuine crash window, so it rarely cries wolf. But
+recall is low and **lead time is effectively zero**: the current rules are
+*reactive*. A rule like `FallingPrices ∧ HighVolatility ∧ TightLiquidity →
+PanicState` can only fire once prices are already falling — during the crash,
+not ahead of it. Genuine *early* warning would require the bubble-phase rules
+(R1–R4) to escalate to a Medium/High signal before the drawdown begins. The
+generic crash evaluator now also scores the 2000 dot-com bust and the 2022
+rate-hike drawdown so this can be tested across more regimes (see Future Work).
+
 ## Limitations
 
 1. Limited to daily data (no intraday signals)
 2. Rules require periodic recalibration for regime changes
 3. Threshold-based symbolization loses granularity
 4. Does not incorporate news/sentiment (only price/volume)
-5. Validated on only 2 major crashes (small sample)
+5. Validated on only a handful of major crashes (small sample)
+6. Current rules are **reactive** — measured crash lead time is ~0 days
+   (see Evaluation Results); genuine early warning needs bubble-phase escalation
 
 ## Future Work
 
