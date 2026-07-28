@@ -265,7 +265,7 @@ If you use this code in your research, please cite:
 
 ## License
 
-[Add license information]
+Released under the MIT License — see [LICENSE](../LICENSE).
 
 ## Contact
 
